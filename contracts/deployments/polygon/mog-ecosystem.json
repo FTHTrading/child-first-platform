@@ -1,11 +1,9 @@
 {
   "network": "polygon",
-  "chainId": "137",
+  "chainId": 137,
   "deployer": "0xd580E0273d8946aF73fc7f444f108282e7dd950B",
-  "deployedAt": "2026-04-02T06:02:52.995Z",
+  "timestamp": "2026-04-02T09:31:28.720Z",
   "contracts": {
-    "CampaignFactory": "0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
-    "DonationReceipt": "0x2Bd17aD3abE1783B2006B47A9d415457178C2422",
     "MOGToken": "0x1Bb149A1e5d858081dc2EAb714069194521Ef0C5",
     "FaithBadge": "0xeE4dFE543f948bb4fa316c361cfa5B5433215BdF",
     "PrayerWall": "0x79110B6cC743c3000829457a0201077aAca82d08",
@@ -15,6 +13,19 @@
     "MOGGovernor": "0xca9E53610B50509D44923C78cf51AE3caC844D92",
     "MissionFactory": "0x617C11FaBe683D2047Ade9E7CbD2150dD176867E"
   },
-  "mogDeployedAt": "2026-04-02T09:31:28.720Z",
-  "roleSetupStatus": "COMPLETE — all roles configured, timelock admin renounced"
+  "roles": {
+    "MOGToken.MINTER_ROLE": [
+      "MOGRegistry",
+      "TithingVault"
+    ],
+    "FaithBadge.MINTER_ROLE": [
+      "MOGRegistry",
+      "TithingVault",
+      "MissionFactory"
+    ],
+    "MOGTimelock.PROPOSER_ROLE": [
+      "MOGGovernor"
+    ],
+    "MOGTimelock.ADMIN_ROLE": "renounced"
+  }
 }
