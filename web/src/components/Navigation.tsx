@@ -6,6 +6,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const primaryLinks = [
   { href: "/campaigns",    label: "Campaigns" },
+  { href: "/certificates", label: "Certificates" },
   { href: "/about",        label: "How It Works" },
   { href: "/transparency", label: "Transparency" },
 ];
@@ -27,7 +28,8 @@ export function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-gray-900 text-lg">
-            <span className="text-blue-600 text-2xl">&#9733;</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="Child First" width={32} height={32} className="rounded-full" />
             Child First
           </Link>
 

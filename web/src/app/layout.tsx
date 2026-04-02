@@ -4,12 +4,21 @@ import { Providers }   from "@/components/providers";
 import { Navigation }  from "@/components/Navigation";
 
 export const metadata: Metadata = {
-  title:       "Child First Platform",
-  description: "Transparent, accountable fundraising for children. Every donation on-chain. Every disbursement dual-approved.",
+  title:       "Child First Platform — A System of Men of God",
+  description: "Transparent, accountable charitable fundraising for children. Every donation on-chain. NFT certificates. Genesis-to-child verified impact.",
+  icons: {
+    icon:      [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple:     "/logo.svg",
+    shortcut:  "/favicon.svg",
+  },
   openGraph: {
-    title:       "Child First Platform",
-    description: "Donate MATIC. Receive an NFT receipt. Watch funds reach children through verifiable milestones.",
+    title:       "Child First Platform — A System of Men of God",
+    description: "Donate MATIC. Receive an NFT certificate. Watch funds journey from genesis to child — all verified on Polygon.",
     type:        "website",
+    images:      [{ url: "/logo.svg", width: 200, height: 200, alt: "Child First Platform" }],
   },
 };
 
@@ -27,7 +36,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
                 {/* Brand */}
                 <div className="col-span-2 sm:col-span-1">
-                  <p className="text-white font-bold text-base mb-2">&#9733; Child First</p>
+                  <div className="flex items-center gap-2 mb-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/logo.svg" alt="Child First Platform" width={28} height={28} />
+                  <p className="text-white font-bold text-base">Child First</p>
+                </div>
                   <p className="text-xs leading-relaxed">
                     Transparent, accountable charitable fundraising on Polygon. Every donation
                     on-chain. Every disbursement dual-approved.
@@ -44,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <li><a href="/campaigns"    className="hover:text-white transition-colors">All Campaigns</a></li>
                     <li><a href="/about"         className="hover:text-white transition-colors">How It Works</a></li>
                     <li><a href="/transparency"  className="hover:text-white transition-colors">Transparency Report</a></li>
+                    <li><a href="/certificates"  className="hover:text-white transition-colors">NFT Certificates</a></li>
                     <li><a href="/governance"    className="hover:text-white transition-colors">Governance</a></li>
                   </ul>
                 </div>

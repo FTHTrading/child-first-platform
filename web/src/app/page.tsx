@@ -1,5 +1,7 @@
-import { Hero }         from "@/components/Hero";
-import { CampaignCard } from "@/components/CampaignCard";
+import { Hero }           from "@/components/Hero";
+import { CampaignCard }   from "@/components/CampaignCard";
+import { GenesisJourney } from "@/components/GenesisJourney";
+import { ComifyStory }    from "@/components/ComifyStory";
 import type { CampaignRecord } from "@/types";
 import Link from "next/link";
 
@@ -61,6 +63,37 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Genesis to Child IoT Journey */}
+      <GenesisJourney />
+
+      {/* Comify visual story */}
+      <ComifyStory />
+
+      {/* Certificates CTA */}
+      <section className="bg-gradient-to-r from-amber-50 to-yellow-50 border-y border-amber-200 py-14 px-4">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="inline-block bg-amber-100 text-amber-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-amber-300 mb-3">
+              NFT Certificates
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2">
+              Every donation is <span className="text-amber-600">certified forever</span>
+            </h2>
+            <p className="text-gray-600 text-sm max-w-lg">
+              When you donate, a soulbound NFT certificate is minted to your wallet — immutable,
+              beautiful, and on-chain. View your certificates, explore premium tiers, and see how
+              your generosity generates real impact on the blockchain.
+            </p>
+          </div>
+          <Link
+            href="/certificates"
+            className="whitespace-nowrap bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-md transition-colors text-sm"
+          >
+            View Certificates &#8599;
+          </Link>
         </div>
       </section>
 

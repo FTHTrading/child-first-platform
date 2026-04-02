@@ -10,6 +10,7 @@ import {
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { parseEther, encodeFunctionData } from "viem";
 import { CAMPAIGN_ABI } from "@/lib/contracts";
+import { CertificateCard } from "@/components/CertificateCard";
 
 interface Props {
   campaignAddress: `0x${string}`;
@@ -84,34 +85,100 @@ export function DonateModal({ campaignAddress, campaignTitle, campaignId, onClos
 
   if (isSuccess || (submitted && txHash)) {
     return (
-      <ModalShell onClose={onClose}>
-        <div className="text-center py-6">
-          <div className="text-5xl mb-4">&#127881;</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-          <p className="text-gray-600 mb-4">
-            Your donation of <strong>{amountStr} MATIC</strong> was confirmed on-chain.
-          </p>
-          <p className="text-sm text-gray-500 mb-6">
-            A soulbound NFT receipt has been minted to your wallet as permanent proof of your contribution.
-          </p>
-          {txHash && (
-            <a
-              href={`https://polygonscan.com/tx/${txHash}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 text-sm font-semibold hover:underline"
-            >
-              View on Polygonscan &rarr;
-            </a>
-          )}
+      /* Wider shell for certificate */
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
+        onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      >
+        <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full relative overflow-y-auto max-h-[90vh]">
           <button
             onClick={onClose}
-            className="mt-6 w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition"
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold z-10"
           >
-            Done
+            &times;
           </button>
+
+          {/* Success banner */}
+          <div className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white text-center py-6 px-4">
+            <div className="text-4xl mb-2">🎉</div>
+            <h2 className="text-xl font-extrabold mb-1">Donation Confirmed!</h2>
+            <p className="text-blue-200 text-sm">
+              Your <strong>{amountStr} MATIC</strong> is now locked in escrow — and your NFT certificate is minted.
+            </p>
+          </div>
+
+          {/* Certificate */}
+          <div className="p-5">
+            <CertificateCard
+              donorAddress={address ?? "0xYourWallet"}
+              amount={amountStr}
+              campaignName={campaignTitle}
+              txHash={txHash ?? undefined}
+              compact={true}
+            />
+          </div>
+
+          {/* Journey mini-strip */}
+          <div className="px-5 pb-4">
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 text-center">
+              Where Your Donation Goes — Genesis to Child
+            </p>
+            <div className="flex items-center justify-between gap-1">
+              {[
+                { emoji: "⭐", label: "Genesis", color: "#818cf8" },
+                { emoji: "⛓️", label: "Chain", color: "#60a5fa" },
+                { emoji: "🔒", label: "Escrow", color: "#38bdf8" },
+                { emoji: "✅", label: "Approved", color: "#34d399" },
+                { emoji: "🏥", label: "Partner", color: "#fbbf24" },
+                { emoji: "👶", label: "Child", color: "#f87171" },
+              ].map((s, i, arr) => (
+                <div key={s.label} className="flex items-center flex-1">
+                  <div className="flex flex-col items-center flex-1 min-w-0">
+                    <div
+                      className="w-9 h-9 rounded-full flex items-center justify-center text-base border-2"
+                      style={{ borderColor: s.color, background: `${s.color}18` }}
+                    >
+                      {s.emoji}
+                    </div>
+                    <span className="text-[8px] font-bold mt-1 text-center" style={{ color: s.color }}>
+                      {s.label}
+                    </span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="h-px w-2 shrink-0" style={{ background: s.color, opacity: 0.4 }} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="px-5 pb-6 space-y-2">
+            {txHash && (
+              <a
+                href={`https://polygonscan.com/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center text-blue-600 text-sm font-semibold hover:underline"
+              >
+                View Transaction on Polygonscan →
+              </a>
+            )}
+            <a
+              href="/certificates"
+              className="block text-center text-amber-600 text-xs font-semibold hover:underline"
+            >
+              Learn about certificate tiers →
+            </a>
+            <button
+              onClick={onClose}
+              className="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-700 transition"
+            >
+              Done
+            </button>
+          </div>
         </div>
-      </ModalShell>
+      </div>
     );
   }
 
