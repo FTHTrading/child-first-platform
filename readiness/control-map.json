@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "schema": "genesis-readiness/control-map/v1",
+    "system": "child-first-platform",
+    "updated": "2026-04-02",
+    "summary": "Dual-role milestone approval system. No token governance. Admin controls are centralized and held by deployer until transferred to a multi-sig."
+  },
+  "factory_control": {
+    "owner": {
+      "address": "0xd580E0273d8946aF73fc7f444f108282e7dd950B",
+      "label": "Deployer wallet",
+      "can_do": [
+        "Create new campaign contracts",
+        "Transfer factory ownership",
+        "Read campaign registry"
+      ],
+      "note": "Recommend transferring to Gnosis Safe before public launch."
+    },
+    "upgrade_authority": "None — contracts are not upgradeable",
+    "emergency_authority": "None at factory level — per-campaign pause available"
+  },
+  "campaign_roles": {
+    "DEFAULT_ADMIN_ROLE": {
+      "description": "Full control over campaign roles and pause/unpause.",
+      "can_do": [
+        "Grant/revoke any role",
+        "Pause and unpause the campaign",
+        "Typically the campaign creator / factory owner"
+      ]
+    },
+    "OPERATOR_ROLE": {
+      "description": "NGO or operational team managing the campaign.",
+      "can_do": [
+        "Add milestones",
+        "Approve milestones (first of two required approvals)",
+        "Cannot disburse alone — requires DIRECTOR_ROLE co-approval"
+      ]
+    },
+    "DIRECTOR_ROLE": {
+      "description": "Independent director / oversight role.",
+      "can_do": [
+        "Approve milestones (second of two required approvals)",
+        "Pause campaign (emergency)",
+        "Cannot disburse alone — requires OPERATOR_ROLE co-approval",
+        "Cannot add milestones"
+      ]
+    }
+  },
+  "donation_receipt_roles": {
+    "DEFAULT_ADMIN_ROLE": {
+      "held_by": ["Factory contract (address(this))", "Admin (deployer at genesis)"],
+      "can_do": ["Grant MINTER_ROLE to new campaigns", "Revoke roles"]
+    },
+    "MINTER_ROLE": {
+      "held_by": "Each Campaign contract — granted by factory at campaign creation",
+      "can_do": ["Mint soulbound NFT receipts for donors"]
+    }
+  },
+  "centralized": [
+    "Factory ownership (deployer wallet — recommend multi-sig after launch)",
+    "Campaign DEFAULT_ADMIN_ROLE",
+    "No on-chain governance or DAO"
+  ],
+  "decentralized": [
+    "Milestone disbursal requires 2-of-2 role approval (OPERATOR + DIRECTOR)",
+    "All donation records immutable on Polygon",
+    "NFT receipts cannot be revoked or burned by admin",
+    "No admin backdoor for fund withdrawal"
+  ],
+  "what_admin_cannot_do": [
+    "Withdraw donor funds directly",
+    "Mint unauthorized NFT receipts",
+    "Transfer soulbound NFTs",
+    "Bypass dual-sig milestone requirement",
+    "Upgrade contracts (no proxy pattern)"
+  ]
+}

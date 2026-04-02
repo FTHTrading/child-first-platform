@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "schema": "genesis-readiness/contracts-registry/v1",
+    "system": "child-first-platform",
+    "updated": "2026-04-02",
+    "note": "Update all PENDING_DEPLOYMENT values after pnpm deploy:mainnet"
+  },
+  "contracts": {
+    "CampaignFactory": {
+      "name": "CampaignFactory",
+      "role": "Factory + campaign registry. Owner deploys new campaigns and manages the DonationReceipt contract.",
+      "address_mainnet": "0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+      "address_testnet": "PENDING_DEPLOYMENT",
+      "chain_id": 137,
+      "solidity_version": "0.8.24",
+      "compiler_settings": "viaIR, optimizer 200 runs, evmVersion: cancun",
+      "source_file": "contracts/contracts/CampaignFactory.sol",
+      "verified_mainnet": false,
+      "verified_testnet": false,
+      "explorer_mainnet": "https://polygonscan.com/address/0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+      "explorer_testnet": "PENDING_DEPLOYMENT",
+      "upgradeable": false,
+      "immutable": true,
+      "audit_status": "PENDING",
+      "notes": "Ownable. Owner controls campaign creation. No proxy, no upgrade path."
+    },
+    "DonationReceipt": {
+      "name": "DonationReceipt",
+      "role": "Soulbound ERC-721 NFT. Minted once per donation. Non-transferable. On-chain SVG metadata.",
+      "address_mainnet": "0x2Bd17aD3abE1783B2006B47A9d415457178C2422",
+      "address_testnet": "PENDING_DEPLOYMENT",
+      "chain_id": 137,
+      "solidity_version": "0.8.24",
+      "compiler_settings": "viaIR, optimizer 200 runs, evmVersion: cancun",
+      "source_file": "contracts/contracts/DonationReceipt.sol",
+      "token_standard": "ERC-721",
+      "transferable": false,
+      "on_chain_metadata": true,
+      "verified_mainnet": false,
+      "verified_testnet": false,
+      "explorer_mainnet": "PENDING_DEPLOYMENT",
+      "explorer_testnet": "PENDING_DEPLOYMENT",
+      "upgradeable": false,
+      "immutable": true,
+      "audit_status": "PENDING",
+      "notes": "MINTER_ROLE granted to each Campaign contract. DEFAULT_ADMIN_ROLE held by factory and admin."
+    },
+    "Campaign": {
+      "name": "Campaign",
+      "role": "Per-campaign donation vault. Accepts MATIC, tracks milestones, requires dual-sig disbursal.",
+      "address_mainnet": "DEPLOYED_PER_CAMPAIGN",
+      "address_testnet": "DEPLOYED_PER_CAMPAIGN",
+      "chain_id": 137,
+      "solidity_version": "0.8.24",
+      "source_file": "contracts/contracts/Campaign.sol",
+      "transferable": null,
+      "verified_mainnet": false,
+      "upgradeable": false,
+      "immutable": true,
+      "audit_status": "PENDING",
+      "notes": "Each campaign is a separate contract instance deployed by CampaignFactory. OPERATOR_ROLE + DIRECTOR_ROLE required for milestone disbursal."
+    }
+  },
+  "wallets": {
+    "deployer": {
+      "label": "Deployer Wallet",
+      "address": "0xd580E0273d8946aF73fc7f444f108282e7dd950B",
+      "purpose": "Deploys CampaignFactory and DonationReceipt. Becomes factory owner after deployment.",
+      "chain": "polygon",
+      "keys_location": "contracts/.env (gitignored)",
+      "is_multisig": false,
+      "note": "FUND THIS WALLET WITH MATIC BEFORE DEPLOYING. Consider transferring ownership to a Gnosis Safe after deployment."
+    },
+    "treasury": {
+      "label": "Platform Treasury",
+      "address": "PENDING — recommend Gnosis Safe",
+      "purpose": "Receives any platform fees (currently 0% — no fees).",
+      "is_multisig": false,
+      "note": "No platform fee is currently collected. Treasury address is a placeholder for future governance."
+    }
+  },
+  "nft": {
+    "DonationReceipt": {
+      "type": "ERC-721",
+      "name": "Child First Donation Receipt",
+      "symbol": "CFDR",
+      "soulbound": true,
+      "metadata_storage": "on-chain (base64 encoded SVG)",
+      "marketplace_tradeable": false,
+      "opensea_url": "N/A — soulbound, non-tradeable"
+    }
+  }
+}

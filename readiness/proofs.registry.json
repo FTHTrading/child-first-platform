@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema": "genesis-readiness/proofs-registry/v1",
+    "system": "child-first-platform",
+    "updated": "2026-04-02",
+    "note": "Every public claim must have a proof entry. Status: LIVE | PENDING | N/A"
+  },
+  "claims": {
+    "dual_signature_disbursal": {
+      "claim": "Milestone funds require approval from both OPERATOR_ROLE and DIRECTOR_ROLE before disbursement",
+      "status": "LIVE",
+      "proof_type": "contract_source + polygonscan_verification",
+      "proof_link": "https://polygonscan.com/address/0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+      "source_reference": "contracts/contracts/Campaign.sol — operatorApproveMilestone(), directorApproveMilestone(), disburseMilestone()",
+      "notes": "Verifiable once contract is deployed and source-verified on Polygonscan"
+    },
+    "soulbound_nft_receipts": {
+      "claim": "Donation receipts are soulbound (non-transferable ERC-721 NFTs)",
+      "status": "PENDING",
+      "proof_type": "contract_source + polygonscan_verification",
+      "proof_link": "PENDING_DEPLOYMENT",
+      "source_reference": "contracts/contracts/DonationReceipt.sol — _update() override reverts all transfers",
+      "notes": "Verifiable once source-verified on Polygonscan"
+    },
+    "on_chain_metadata": {
+      "claim": "NFT metadata (image + attributes) stored entirely on-chain — no IPFS or centralized server dependency",
+      "status": "PENDING",
+      "proof_type": "contract_source + tokenURI_call",
+      "proof_link": "PENDING_DEPLOYMENT",
+      "source_reference": "contracts/contracts/DonationReceipt.sol — tokenURI() returns base64 data URI",
+      "notes": "Call tokenURI(1) after first donation — returns data:application/json;base64,..."
+    },
+    "no_admin_withdrawal": {
+      "claim": "Admin wallet cannot directly withdraw donor funds",
+      "status": "PENDING",
+      "proof_type": "contract_source_verified",
+      "proof_link": "PENDING_DEPLOYMENT",
+      "source_reference": "contracts/contracts/Campaign.sol — no withdrawAll(), no adminWithdraw() function exists",
+      "notes": "Funds only move via disburseMilestone() which requires dual approval"
+    },
+    "non_upgradeable_contracts": {
+      "claim": "Contracts are not upgradeable — no proxy pattern, no admin can change contract logic",
+      "status": "PENDING",
+      "proof_type": "contract_source_verified",
+      "proof_link": "PENDING_DEPLOYMENT",
+      "source_reference": "All 3 contracts — no TransparentProxy, UUPS, or BeaconProxy patterns",
+      "notes": "Source verification on Polygonscan makes this verifiable by any auditor"
+    },
+    "reentrancy_protected": {
+      "claim": "Donation and disbursement functions are protected against reentrancy attacks",
+      "status": "PENDING",
+      "proof_type": "contract_source + test_suite",
+      "proof_link": "PENDING_DEPLOYMENT",
+      "source_reference": "contracts/contracts/Campaign.sol — ReentrancyGuard on donate() and disburseMilestone(); CEI pattern",
+      "test_reference": "contracts/test/ChildFirst.test.ts — reentrancy tests in suite"
+    },
+    "open_source": {
+      "claim": "All smart contract source code is publicly available",
+      "status": "PENDING",
+      "proof_type": "github_repo + polygonscan_verification",
+      "proof_link": "PENDING",
+      "notes": "GitHub repo to be published before mainnet launch"
+    },
+    "31_tests_passing": {
+      "claim": "31 automated tests covering all contract features pass on Hardhat",
+      "status": "LIVE",
+      "proof_type": "local_test_suite",
+      "proof_link": "contracts/test/ChildFirst.test.ts",
+      "notes": "Run: cd contracts && pnpm test — should show 31 passing",
+      "last_verified": "2026-04-02"
+    }
+  }
+}

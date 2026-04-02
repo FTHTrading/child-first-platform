@@ -1,0 +1,10 @@
+{
+  "network": "polygon",
+  "chainId": "137",
+  "deployer": "0xd580E0273d8946aF73fc7f444f108282e7dd950B",
+  "deployedAt": "2026-04-02T06:02:52.995Z",
+  "contracts": {
+    "CampaignFactory": "0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+    "DonationReceipt": "0x2Bd17aD3abE1783B2006B47A9d415457178C2422"
+  }
+}

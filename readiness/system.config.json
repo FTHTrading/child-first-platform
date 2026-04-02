@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "schema": "genesis-readiness/system-config/v1",
+    "system": "child-first-platform",
+    "version": "1.0.0",
+    "created": "2026-04-02",
+    "updated": "2026-04-02"
+  },
+  "identity": {
+    "name": "Child First Platform",
+    "namespace": "child-first",
+    "slug": "child-first-platform",
+    "ticker": null,
+    "tagline": "Transparent, on-chain charitable giving for children — verified receipts, dual-sig disbursements",
+    "description": "Child First Platform is a public charitable fundraising system built on Polygon. Donations are recorded on-chain with soulbound NFT receipts minted per donation. Milestones are disbursed only after dual-signature approval (Operator + Director). The architecture is open, auditable, and designed to eliminate donation opacity.",
+    "category": ["charitable-giving", "donation-platform", "nft-receipts", "nonprofit-infrastructure", "social-impact"],
+    "chain_tags": ["polygon", "evm", "polygon-amoy-testnet"],
+    "token_type": "ERC-721 Soulbound (receipt NFT, non-transferable)",
+    "license": "PENDING"
+  },
+  "links": {
+    "website": "https://childfirst.mensofgod.com",
+    "docs": "https://childfirst.mensofgod.com/docs",
+    "github": "PENDING",
+    "explorer_factory": "https://polygonscan.com/address/0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+    "explorer_receipt": "https://polygonscan.com/address/0x2Bd17aD3abE1783B2006B47A9d415457178C2422",
+    "listing_packet": "PENDING"
+  },
+  "contact": {
+    "email": "kevan@unykorn.org",
+    "org": "FTH Trading / MensOfGod.com",
+    "support_url": "PENDING"
+  },
+  "socials": {
+    "twitter": "PENDING",
+    "discord": "PENDING",
+    "telegram": "PENDING"
+  },
+  "brand": {
+    "logo_pack": "PENDING",
+    "banner": "PENDING",
+    "primary_color": "#1e3a5f",
+    "secondary_color": "#3b82f6",
+    "font": "Inter"
+  },
+  "deployment": {
+    "network_primary": "polygon-mainnet",
+    "network_testnet": "polygon-amoy",
+    "chain_id_mainnet": 137,
+    "chain_id_testnet": 80002,
+    "deployer_address": "0xd580E0273d8946aF73fc7f444f108282e7dd950B",
+    "deployer_keys_location": "contracts/.env (gitignored)",
+    "deploy_status": "DEPLOYED — 2026-04-02",
+    "factory_address": "0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386",
+    "receipt_address": "0x2Bd17aD3abE1783B2006B47A9d415457178C2422"
+  }
+}

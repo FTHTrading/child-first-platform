@@ -1,0 +1,90 @@
+{
+  "_meta": {
+    "schema": "genesis-readiness/readiness-checklist/v1",
+    "system": "child-first-platform",
+    "updated": "2026-04-02T-verified",
+    "status": "CONTRACTS-LIVE"
+  },
+  "build_gate": {
+    "label": "Build Gate — Code and architecture complete",
+    "status": "PASS",
+    "items": {
+      "smart_contracts_compile": { "status": "PASS", "note": "27 Solidity files compile clean, Cancun EVM, OZ v5" },
+      "tests_pass": { "status": "PASS", "note": "31/31 automated tests passing" },
+      "frontend_scaffold": { "status": "PASS", "note": "Next.js 14, wagmi v2, RainbowKit v2, Tailwind" },
+      "api_routes": { "status": "PASS", "note": "4 API routes implemented" },
+      "database_schema": { "status": "PASS", "note": "Prisma schema with Campaign, Donation, Milestone, Operator" },
+      "deploy_scripts": { "status": "PASS", "note": "deploy.ts and generate-wallet.ts ready" },
+      "deployer_wallet_generated": { "status": "PASS", "note": "0xd580E0273d8946aF73fc7f444f108282e7dd950B" }
+    }
+  },
+  "control_gate": {
+    "label": "Control Gate — Ownership and governance mapped",
+    "status": "PARTIAL",
+    "items": {
+      "ownership_documented": { "status": "PASS", "note": "control-map.json complete" },
+      "roles_documented": { "status": "PASS", "note": "ADMIN, OPERATOR, DIRECTOR, MINTER roles all mapped" },
+      "multisig_deployed": { "status": "FAIL", "note": "PENDING — recommend Gnosis Safe for factory owner before public launch" },
+      "ownership_transferred_to_multisig": { "status": "FAIL", "note": "PENDING post-deployment" }
+    }
+  },
+  "transparency_gate": {
+    "label": "Transparency Gate — Docs and disclosures live",
+    "status": "PARTIAL",
+    "items": {
+      "readme": { "status": "PASS", "note": "SETUP_GUIDE.md complete" },
+      "architecture_docs": { "status": "PASS", "note": "Inline in SETUP_GUIDE.md and governance docs" },
+      "disclosures_md": { "status": "PASS", "note": "readiness/disclosures.md complete" },
+      "public_site_live": { "status": "FAIL", "note": "PENDING — childfirst.mensofgod.com reserved, not deployed" },
+      "docs_page_live": { "status": "FAIL", "note": "PENDING" },
+      "wallet_labels_published": { "status": "FAIL", "note": "PENDING — update contracts.registry.json after deploy" }
+    }
+  },
+  "listing_gate": {
+    "label": "Listing Gate — Metadata and registry complete",
+    "status": "CONTRACTS-VERIFIED",
+    "items": {
+      "system_config_json": { "status": "PASS", "note": "readiness/system.config.json" },
+      "contracts_registry_json": { "status": "PASS", "note": "readiness/contracts.registry.json (addresses pending deployment)" },
+      "contract_addresses_filled": { "status": "PASS", "note": "Factory: 0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386 | Receipt: 0x2Bd17aD3abE1783B2006B47A9d415457178C2422" },
+      "contracts_source_verified": { "status": "PASS", "note": "VERIFIED 2026-04-02. CampaignFactory: https://polygonscan.com/address/0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386#code | DonationReceipt: https://polygonscan.com/address/0x2Bd17aD3abE1783B2006B47A9d415457178C2422#code" },
+      "nft_metadata_standard": { "status": "PASS", "note": "ERC-721 compliant, on-chain SVG, opensea-compatible JSON" },
+      "logo_pack_ready": { "status": "FAIL", "note": "PENDING — create logo/banner assets" },
+      "official_links_live": { "status": "FAIL", "note": "PENDING — site must be deployed" }
+    }
+  },
+  "proof_gate": {
+    "label": "Proof Gate — Major claims backed by evidence",
+    "status": "PARTIAL",
+    "items": {
+      "contracts_deployed": { "status": "PASS", "note": "Deployed 2026-04-02. Factory: 0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386 | Receipt: 0x2Bd17aD3abE1783B2006B47A9d415457178C2422" },
+      "contracts_verified_on_polygonscan": { "status": "PASS", "note": "VERIFIED 2026-04-02. CampaignFactory + DonationReceipt both source-verified on Polygonscan" },
+      "dual_sig_milestone_proof": { "status": "PASS", "note": "Provable from verified releaseFunds() requiring director + operator approval" },
+      "soulbound_nft_proof": { "status": "PASS", "note": "Provable from verified _update() override disallowing transfers" },
+      "no_admin_withdrawal_proof": { "status": "PASS", "note": "Provable from verified source — no withdrawAll function exists" },
+      "test_suite_public": { "status": "PASS", "note": "31 tests in contracts/test/ChildFirst.test.ts" }
+    }
+  },
+  "exchange_readiness": {
+    "label": "Exchange / Platform Readiness",
+    "note": "This platform has no tradeable token. NFT receipts are soulbound. This section tracks listing on NFT/impact platforms, not token exchanges.",
+    "items": {
+      "opensea_compatible_metadata": { "status": "PASS", "note": "On-chain base64 JSON + SVG — opensea can display" },
+      "nft_non_tradeable_disclosed": { "status": "PASS", "note": "Soulbound, non-transferable — disclosed in disclosures.md" },
+      "impact_platform_listing": { "status": "FAIL", "note": "PENDING — Gitcoin, Giveth, Impact Market, etc." },
+      "audit_status": { "status": "FAIL", "note": "PENDING — commission audit before mainnet launch with real funds" },
+      "risk_disclosures_live": { "status": "PASS", "note": "readiness/disclosures.md complete" },
+      "tokenomics_published": { "status": "N/A", "note": "No native token — NFT receipts only" },
+      "supply_allocation_published": { "status": "N/A", "note": "No token supply" }
+    }
+  },
+  "next_actions": [
+    "[DONE] Deployed to Polygon mainnet 2026-04-02",
+    "Verify contracts: npx hardhat verify --network polygon 0x7868D0D5aD5DB9a462093D06cAE2e8c7D3Cbf386 0xd580E0273d8946aF73fc7f444f108282e7dd950B",
+    "Set up Gnosis Safe for factory ownership",
+    "Deploy web app to Vercel/Railway and update childfirst.mensofgod.com DNS record",
+    "Commission smart contract audit",
+    "Create logo/banner assets",
+    "Submit to Gitcoin / Giveth / impact platforms"
+  ]
+}

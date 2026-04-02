@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Campaigns ─────────────────────────────────────────────────────────────
+
+model Campaign {
+  id              String         @id @default(cuid())
+  campaignId      String         @unique   // matches on-chain campaignId
+  title           String
+  description     String         @db.Text
+  imageUrl        String?
+  location        String?
+  organizationName String?
+
+  // On-chain state (mirrored/indexed from events)
+  contractAddress String?        @unique
+  goalAmount      Decimal        // MATIC
+  deadline        DateTime
+  status          CampaignStatus @default(PENDING_REVIEW)
+
+  // Off-chain fields
+  operatorId      String?
+  operator        Operator?      @relation(fields: [operatorId], references: [id])
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  donations       Donation[]
+  milestones      Milestone[]
+
+  @@index([status])
+  @@index([deadline])
+}
+
+// ─── Donations ─────────────────────────────────────────────────────────────
+
+model Donation {
+  id              String    @id @default(cuid())
+  campaignId      String
+  campaign        Campaign  @relation(fields: [campaignId], references: [campaignId])
+
+  txHash          String    @unique          // on-chain transaction hash
+  donorAddress    String                     // 0x wallet address
+  amountMatic     Decimal                    // MATIC value of donation
+  receiptTokenId  Int?                       // minted NFT token ID
+
+  createdAt       DateTime  @default(now())
+
+  @@index([donorAddress])
+  @@index([campaignId])
+}
+
+// ─── Milestones ────────────────────────────────────────────────────────────
+
+model Milestone {
+  id              String          @id @default(cuid())
+  campaignId      String
+  campaign        Campaign        @relation(fields: [campaignId], references: [campaignId])
+
+  milestoneIndex  Int                         // matches on-chain milestone index
+  description     String          @db.Text
+  targetAmount    Decimal                     // MATIC
+  recipient       String                      // recipient wallet address
+
+  // Off-chain evidence
+  evidenceUrl     String?
+  evidenceNotes   String?         @db.Text
+
+  status          MilestoneStatus @default(PENDING)
+  txHash          String?                     // disbursement tx hash when DISBURSED
+
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@unique([campaignId, milestoneIndex])
+}
+
+// ─── Operators ─────────────────────────────────────────────────────────────
+
+model Operator {
+  id              String    @id @default(cuid())
+  walletAddress   String    @unique
+  name            String
+  orgName         String
+  orgType         String    // e.g. "NGO", "Non-Profit", "Foundation"
+  verified        Boolean   @default(false)
+  verifiedAt      DateTime?
+
+  createdAt       DateTime  @default(now())
+
+  campaigns       Campaign[]
+}
+
+// ─── Enums ─────────────────────────────────────────────────────────────────
+
+enum CampaignStatus {
+  PENDING_REVIEW
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CLOSED
+}
+
+enum MilestoneStatus {
+  PENDING
+  OPERATOR_APPROVED
+  DIRECTOR_APPROVED
+  DISBURSED
+}

@@ -1,0 +1,37 @@
+{
+  "name": "child-first-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Transparent, accountable fundraising for children — fully on-chain and verifiable.",
+  "scripts": {
+    "contracts:compile": "cd contracts && pnpm compile",
+    "contracts:test": "cd contracts && pnpm test",
+    "contracts:node": "cd contracts && pnpm node",
+    "contracts:deploy:local": "cd contracts && pnpm deploy:local",
+    "contracts:deploy:testnet": "cd contracts && pnpm deploy:testnet",
+    "contracts:deploy:mainnet": "cd contracts && pnpm deploy:mainnet",
+    "contracts:wallet": "cd contracts && pnpm generate-wallet",
+    "web:dev": "cd web && pnpm dev",
+    "web:build": "cd web && pnpm build",
+    "web:start": "cd web && pnpm start",
+    "web:db:migrate": "cd web && pnpm prisma:migrate",
+    "web:db:studio": "cd web && pnpm prisma:studio",
+    "install:all": "cd contracts && pnpm install ; cd ../web && pnpm install",
+    "dev": "cd web && pnpm dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "bufferutil",
+      "keccak",
+      "prisma",
+      "secp256k1",
+      "unrs-resolver",
+      "utf-8-validate"
+    ]
+  }
+}
