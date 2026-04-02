@@ -27,13 +27,6 @@ const config: HardhatUserConfig = {
       url: "http://127.0.0.1:8545",
       chainId: 31337,
     },
-    // Polygon Amoy testnet (replaced Mumbai in 2024)
-    amoy: {
-      url: process.env.POLYGON_AMOY_RPC || "https://rpc-amoy.polygon.technology",
-      accounts: deployerKey ? [deployerKey] : [],
-      chainId: 80002,
-      gasPrice: "auto",
-    },
     // Polygon Mainnet
     polygon: {
       url: process.env.POLYGON_MAINNET_RPC || "https://polygon-rpc.com",
@@ -52,14 +45,6 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api.etherscan.io/v2/api?chainid=137",
           browserURL: "https://polygonscan.com",
-        },
-      },
-      {
-        network: "polygonAmoy",
-        chainId: 80002,
-        urls: {
-          apiURL: "https://api.etherscan.io/v2/api?chainid=80002",
-          browserURL: "https://amoy.polygonscan.com",
         },
       },
     ],

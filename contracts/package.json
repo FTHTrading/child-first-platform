@@ -8,10 +8,8 @@
     "coverage":         "hardhat coverage",
     "node":             "hardhat node",
     "deploy:local":     "hardhat run scripts/deploy.ts --network localhost",
-    "deploy:testnet":   "hardhat run scripts/deploy.ts --network amoy",
     "deploy:mainnet":   "hardhat run scripts/deploy.ts --network polygon",
     "generate-wallet":  "ts-node scripts/generate-wallet.ts",
-    "verify:testnet":   "hardhat verify --network amoy",
     "verify:mainnet":   "hardhat verify --network polygon",
     "copy-abis":        "ts-node scripts/copy-abis.ts"
   },

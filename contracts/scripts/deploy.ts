@@ -83,7 +83,7 @@ async function main() {
   }
 
   // ── Polygonscan verification hint ────────────────────────────────────
-  if (network.name === "polygon" || network.name === "amoy") {
+  if (network.name === "polygon") {
     console.log("\n  To verify contracts on Polygonscan:");
     console.log(`  npx hardhat verify --network ${network.name} ${factoryAddress} ${deployer.address}`);
   }

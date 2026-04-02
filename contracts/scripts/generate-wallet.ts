@@ -32,11 +32,9 @@ function main() {
   console.log("");
   console.log(sep);
   console.log("  HOW TO USE:");
-  console.log("  1. Send MATIC to the address above.");
-  console.log("     • Testnet (Amoy):  get free MATIC at https://faucet.polygon.technology");
-  console.log("     • Mainnet:         buy MATIC and send to the address above (~20 MATIC)");
+  console.log("  1. Send POL/MATIC to the address above (Polygon Mainnet).");
   console.log("  2. The private key is being saved to contracts/.env automatically.");
-  console.log("  3. Once funded, run:  pnpm deploy:testnet  OR  pnpm deploy:mainnet");
+  console.log("  3. Once funded, run:  pnpm deploy:mainnet");
   console.log(sep + "\n");
 
   // Write .env only if it doesn't already exist
@@ -57,7 +55,6 @@ function main() {
     "",
     "# ── Network RPC URLs (free public endpoints — swap for Alchemy/Infura in production) ──",
     "POLYGON_MAINNET_RPC=https://polygon-rpc.com",
-    "POLYGON_AMOY_RPC=https://rpc-amoy.polygon.technology",
     "",
     "# ── Polygonscan API key (optional — only needed for contract verification) ──",
     "POLYGONSCAN_API_KEY=",
@@ -68,7 +65,7 @@ function main() {
 
   fs.writeFileSync(envPath, envContent, { encoding: "utf8" });
   console.log("  [OK] .env written to: " + envPath);
-  console.log("  Fund the wallet above, then run:  pnpm deploy:testnet\n");
+  console.log("  Fund the wallet above, then run:  pnpm deploy:mainnet\n");
 }
 
 main();

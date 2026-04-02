@@ -1,7 +1,7 @@
 "use client";
 
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { polygon, polygonAmoy } from "wagmi/chains";
+import { polygon } from "wagmi/chains";
 import { http } from "wagmi";
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!;
@@ -16,10 +16,9 @@ export const wagmiConfig = getDefaultConfig({
   appUrl:         "https://childfirst.mensofgod.com",
   appIcon:        "https://childfirst.mensofgod.com/icon.png",
   projectId,
-  chains: [polygon, polygonAmoy],
+  chains: [polygon],
   transports: {
-    [polygon.id]:      http(alchemyRpc),
-    [polygonAmoy.id]:  http("https://rpc-amoy.polygon.technology"),
+    [polygon.id]: http(alchemyRpc),
   },
   ssr: true,
 });
