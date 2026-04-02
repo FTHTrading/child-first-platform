@@ -18,6 +18,7 @@ package = "@netlify/plugin-nextjs"
 publish = "C:\\Users\\Kevan\\child-first-platform\\web\\.next"
 publishOrigin = "config"
 commandOrigin = "config"
+base = "C:\\Users\\Kevan\\child-first-platform\\web"
 command = "npx prisma generate && npm run build"
 
 [build.environment]

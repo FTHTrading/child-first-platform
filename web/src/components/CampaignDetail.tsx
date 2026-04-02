@@ -172,6 +172,7 @@ export function CampaignDetail({ campaign, campaignAddress }: Props) {
         <DonateModal
           campaignAddress={campaignAddress}
           campaignTitle={campaign.title}
+          campaignId={campaign.campaignId}
           onClose={() => setDonateOpen(false)}
         />
       )}

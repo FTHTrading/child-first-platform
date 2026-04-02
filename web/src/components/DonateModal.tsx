@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useAccount,
   useBalance,
@@ -14,13 +14,14 @@ import { CAMPAIGN_ABI } from "@/lib/contracts";
 interface Props {
   campaignAddress: `0x${string}`;
   campaignTitle:   string;
+  campaignId:      string;
   onClose:         () => void;
   onSuccess?:      (txHash: string) => void;
 }
 
 const PRESETS = ["1", "5", "10", "25", "50"];
 
-export function DonateModal({ campaignAddress, campaignTitle, onClose, onSuccess }: Props) {
+export function DonateModal({ campaignAddress, campaignTitle, campaignId, onClose, onSuccess }: Props) {
   const { address, isConnected } = useAccount();
   const { openConnectModal }     = useConnectModal();
 
@@ -29,10 +30,30 @@ export function DonateModal({ campaignAddress, campaignTitle, onClose, onSuccess
   const [amountStr, setAmountStr]   = useState("5");
   const [inputError, setInputError] = useState("");
   const [submitted, setSubmitted]   = useState(false);
+  const [dbRecorded, setDbRecorded] = useState(false);
 
   const { sendTransaction, isPending, isError: sendError, data: txHash } = useSendTransaction();
   const { isLoading: waiting, isSuccess } =
     useWaitForTransactionReceipt({ hash: txHash });
+
+  /* Record donation to database once the tx is confirmed */
+  useEffect(() => {
+    if (!isSuccess || !txHash || !address || dbRecorded) return;
+    setDbRecorded(true);
+    fetch("/api/donations", {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        campaignId,
+        txHash,
+        donorAddress: address,
+        amountMatic:  amountStr,
+        receiptTokenId: null,
+      }),
+    }).catch(() => {
+      // Non-blocking: donation is already on-chain; DB record failure is non-fatal
+    });
+  }, [isSuccess, txHash, address, campaignId, amountStr, dbRecorded]);
 
   const validate = (v: string) => {
     const n = parseFloat(v);

@@ -3,6 +3,38 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const ALLOWED_STATUSES = ["PENDING_REVIEW", "ACTIVE", "PAUSED", "COMPLETED", "CANCELLED"];
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const { id } = await params;
+    const body   = await req.json();
+
+    const { status } = body;
+    if (!status || !ALLOWED_STATUSES.includes(status)) {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    }
+
+    const existing = await prisma.campaign.findUnique({ where: { campaignId: id } });
+    if (!existing) {
+      return NextResponse.json({ error: "Campaign not found" }, { status: 404 });
+    }
+
+    const updated = await prisma.campaign.update({
+      where: { campaignId: id },
+      data:  { status },
+    });
+
+    return NextResponse.json({ campaign: { campaignId: updated.campaignId, status: updated.status } });
+  } catch (err) {
+    console.error("[PATCH /api/campaigns/[id]]", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
