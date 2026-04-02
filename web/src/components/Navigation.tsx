@@ -11,6 +11,14 @@ const primaryLinks = [
   { href: "/transparency", label: "Transparency" },
 ];
 
+const mogLinks = [
+  { href: "/mog",              label: "Overview" },
+  { href: "/mog/prayer-wall",  label: "Prayer Wall" },
+  { href: "/mog/members",      label: "Members" },
+  { href: "/mog/tithe",        label: "Tithe" },
+  { href: "/mog/missions",     label: "Missions" },
+];
+
 const learnLinks = [
   { href: "/tokenomics",  label: "Tokenomics" },
   { href: "/governance",  label: "Governance" },
@@ -19,6 +27,7 @@ const learnLinks = [
 
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mogOpen,    setMogOpen]    = useState(false);
   const [learnOpen,  setLearnOpen]  = useState(false);
 
   return (
@@ -40,6 +49,39 @@ export function Navigation() {
                 {l.label}
               </Link>
             ))}
+
+            {/* MOG dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setMogOpen((v) => !v)}
+                className="flex items-center gap-1 hover:text-purple-600 transition-colors focus:outline-none font-medium"
+              >
+                <span className="text-purple-600">✝</span> MOG
+                <svg
+                  className={`w-3 h-3 transition-transform ${mogOpen ? "rotate-180" : ""}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mogOpen && (
+                <div
+                  className="absolute top-8 right-0 bg-white border border-gray-200 rounded-xl shadow-lg w-44 py-2 z-50"
+                  onMouseLeave={() => setMogOpen(false)}
+                >
+                  {mogLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setMogOpen(false)}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Learn dropdown */}
             <div className="relative">
@@ -106,7 +148,33 @@ export function Navigation() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-1">
-          {[...primaryLinks, ...learnLinks].map((l) => (
+          {[...primaryLinks].map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setMobileOpen(false)}
+              className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div className="pt-2 pb-1">
+            <p className="px-3 text-xs font-bold text-purple-600 uppercase tracking-widest">Men of God</p>
+          </div>
+          {mogLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={() => setMobileOpen(false)}
+              className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div className="pt-2 pb-1">
+            <p className="px-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Learn</p>
+          </div>
+          {learnLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}

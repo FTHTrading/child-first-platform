@@ -256,6 +256,66 @@ export default function GovernancePage() {
           </p>
         </section>
 
+        {/* Live On-Chain Governance — MOG */}
+        <section>
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-2xl">✝</span>
+            <h2 className="text-2xl font-bold text-gray-900">Live On-Chain Governance — Men of God</h2>
+          </div>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            The Men of God (MOG) ecosystem runs its own fully autonomous on-chain governance layer deployed on Polygon mainnet.
+            The MOGGovernor contract enforces all voting rules, and the MOGTimelock enforces execution delays — no admin key
+            can bypass either. The deployer&apos;s <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">TIMELOCK_ADMIN_ROLE</code> has been
+            irrevocably renounced, meaning the community alone controls proposals.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            <div className="bg-purple-50 border border-purple-200 rounded-xl p-5">
+              <p className="text-xs font-semibold text-purple-500 uppercase tracking-widest mb-1">MOGGovernor</p>
+              <a
+                href="https://polygonscan.com/address/0xca9E53610B50509D44923C78cf51AE3caC844D92"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-purple-700 hover:underline break-all"
+              >
+                0xca9E53610B50509D44923C78cf51AE3caC844D92
+              </a>
+              <ul className="mt-3 space-y-1 text-sm text-gray-700">
+                <li><span className="text-gray-400 mr-1">›</span> Voting delay: 1 block (~2 s)</li>
+                <li><span className="text-gray-400 mr-1">›</span> Voting period: 50,400 blocks (~7 days)</li>
+                <li><span className="text-gray-400 mr-1">›</span> Proposal threshold: 1,000 MOG</li>
+                <li><span className="text-gray-400 mr-1">›</span> Quorum: 4% of total MOG supply</li>
+              </ul>
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">MOGTimelock</p>
+              <a
+                href="https://polygonscan.com/address/0xA937444bD799Ab6a16BFF9c3e9048473BB31959B"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-slate-700 hover:underline break-all"
+              >
+                0xA937444bD799Ab6a16BFF9c3e9048473BB31959B
+              </a>
+              <ul className="mt-3 space-y-1 text-sm text-gray-700">
+                <li><span className="text-gray-400 mr-1">›</span> Minimum delay: 2 days</li>
+                <li><span className="text-gray-400 mr-1">›</span> TIMELOCK_ADMIN_ROLE: renounced</li>
+                <li><span className="text-gray-400 mr-1">›</span> PROPOSER_ROLE: MOGGovernor only</li>
+                <li><span className="text-gray-400 mr-1">›</span> EXECUTOR_ROLE: open (any address)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex gap-3 items-start">
+            <span className="text-green-600 mt-0.5">✓</span>
+            <p className="text-sm text-green-800">
+              <strong>Fully decentralised:</strong> Admin key renounced at deploy. No wallet — including the platform owner — can
+              execute governance actions without a successful on-chain vote + 2-day timelock. Explore the full MOG ecosystem at{" "}
+              <Link href="/mog" className="underline hover:text-green-900">childfirst.io/mog</Link>.
+            </p>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
