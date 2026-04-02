@@ -184,6 +184,16 @@ export const RECEIPT_ABI = [
     outputs: [{ type: "uint256" }],
   },
   {
+    // ERC721Enumerable — iterate tokens owned by a wallet
+    name: "tokenOfOwnerByIndex",
+    type: "function", stateMutability: "view",
+    inputs: [
+      { name: "owner", type: "address"  },
+      { name: "index", type: "uint256"  },
+    ],
+    outputs: [{ type: "uint256" }],
+  },
+  {
     name: "tokenURI",
     type: "function", stateMutability: "view",
     inputs: [{ name: "tokenId", type: "uint256" }],

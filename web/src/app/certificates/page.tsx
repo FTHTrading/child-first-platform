@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CertificateCard } from "@/components/CertificateCard";
+import { MyCertificates } from "@/components/MyCertificates";
 
 export const metadata: Metadata = {
   title: "Certificates & NFTs | Child First Platform",
@@ -174,6 +175,9 @@ export default function CertificatesPage() {
           </div>
         </div>
       </section>
+
+      {/* ── My Certificates (live wallet) ── */}
+      <MyCertificates />
 
       {/* ── How It Works ── */}
       <section className="bg-gray-50 py-16 px-4">
